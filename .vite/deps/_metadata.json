@@ -1,0 +1,132 @@
+{
+  "hash": "1e49ba7e",
+  "configHash": "41f2b270",
+  "lockfileHash": "cd1be786",
+  "browserHash": "71cdb37c",
+  "optimized": {
+    "@tanstack/react-devtools": {
+      "src": "../../node_modules/@tanstack/react-devtools/dist/esm/index.js",
+      "file": "@tanstack_react-devtools.js",
+      "fileHash": "df57a158",
+      "needsInterop": false
+    },
+    "@tanstack/react-router-devtools": {
+      "src": "../../node_modules/@tanstack/react-router-devtools/dist/esm/index.js",
+      "file": "@tanstack_react-router-devtools.js",
+      "fileHash": "5c3aea99",
+      "needsInterop": false
+    },
+    "@tanstack/react-router": {
+      "src": "../../node_modules/@tanstack/react-router/dist/esm/index.dev.js",
+      "file": "@tanstack_react-router.js",
+      "fileHash": "cccbc486",
+      "needsInterop": false
+    },
+    "class-variance-authority": {
+      "src": "../../node_modules/class-variance-authority/dist/index.mjs",
+      "file": "class-variance-authority.js",
+      "fileHash": "ad5a1e89",
+      "needsInterop": false
+    },
+    "clsx": {
+      "src": "../../node_modules/clsx/dist/clsx.mjs",
+      "file": "clsx.js",
+      "fileHash": "2ffc5bfe",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "b74e9e0e",
+      "needsInterop": false
+    },
+    "radix-ui": {
+      "src": "../../node_modules/radix-ui/dist/index.mjs",
+      "file": "radix-ui.js",
+      "fileHash": "0052095a",
+      "needsInterop": false
+    },
+    "react-dom": {
+      "src": "../../node_modules/react-dom/index.js",
+      "file": "react-dom.js",
+      "fileHash": "03f35b5f",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "28d3bf14",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "c139b23c",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "cb425fe1",
+      "needsInterop": true
+    },
+    "react/jsx-runtime": {
+      "src": "../../node_modules/react/jsx-runtime.js",
+      "file": "react_jsx-runtime.js",
+      "fileHash": "2bb357ce",
+      "needsInterop": true
+    },
+    "tailwind-merge": {
+      "src": "../../node_modules/tailwind-merge/dist/bundle-mjs.mjs",
+      "file": "tailwind-merge.js",
+      "fileHash": "dc33fe84",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "6VOXIWN7-3xfKH7jZ": {
+      "file": "6VOXIWN7-3xfKH7jZ.js",
+      "isDynamicEntry": true
+    },
+    "A767CXXU-BrX-Ek29": {
+      "file": "A767CXXU-BrX-Ek29.js",
+      "isDynamicEntry": false
+    },
+    "BaseTanStackRouterDevtoolsPanel-SWyE65Is-BOyp1Jhi": {
+      "file": "BaseTanStackRouterDevtoolsPanel-SWyE65Is-BOyp1Jhi.js",
+      "isDynamicEntry": true
+    },
+    "FloatingTanStackRouterDevtools-CnpwH7La-Cw3ITUxh": {
+      "file": "FloatingTanStackRouterDevtools-CnpwH7La-Cw3ITUxh.js",
+      "isDynamicEntry": true
+    },
+    "HURJB5JH-Dlc9T4KO": {
+      "file": "HURJB5JH-Dlc9T4KO.js",
+      "isDynamicEntry": false
+    },
+    "ULBSOMKL-B6o21I_B": {
+      "file": "ULBSOMKL-B6o21I_B.js",
+      "isDynamicEntry": false
+    },
+    "WTMSHSGW-CflIApv9": {
+      "file": "WTMSHSGW-CflIApv9.js",
+      "isDynamicEntry": true
+    },
+    "context-DmSxegOg-DdyjnR8F": {
+      "file": "context-DmSxegOg-DdyjnR8F.js",
+      "isDynamicEntry": false
+    },
+    "goober.modern-2MH949Bw": {
+      "file": "goober.modern-2MH949Bw.js",
+      "isDynamicEntry": false
+    },
+    "index.dev-KyT1ddlb": {
+      "file": "index.dev-KyT1ddlb.js",
+      "isDynamicEntry": false
+    },
+    "rolldown-runtime-B-1-B7_t": {
+      "file": "rolldown-runtime-B-1-B7_t.js",
+      "isDynamicEntry": false
+    }
+  }
+}
