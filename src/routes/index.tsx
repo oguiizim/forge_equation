@@ -4,5 +4,5 @@ import { Calculator } from "#/components/Calculator.tsx";
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-	return <Calculator />;
+  return <Calculator />;
 }
