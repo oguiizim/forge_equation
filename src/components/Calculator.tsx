@@ -4,6 +4,7 @@ import {
   Layers3,
   Moon,
   Plus,
+  RotateCcw,
   Sun,
   Wrench,
 } from "lucide-react";
@@ -71,6 +72,22 @@ export function Calculator() {
     setFilaments((prev) => [...prev, createFilament()]);
   }, []);
 
+  const resetOperationalCosts = useCallback(() => {
+    priceH.setValue(0);
+    maintenance.setValue(0);
+    markup.setValue(0);
+  }, [maintenance, markup, priceH]);
+
+  const resetMinutes = useCallback(() => {
+    minutes.setValue(0);
+  }, [minutes]);
+
+  const resetFilamentGrams = useCallback(() => {
+    setFilaments((prev) =>
+      prev.map((filament) => ({ ...filament, grams: 0 })),
+    );
+  }, []);
+
   const removeFilament = useCallback((index: number) => {
     setFilaments((prev) => {
       if (prev.length === 1) {
@@ -93,6 +110,7 @@ export function Calculator() {
   const filledFields = filaments.filter(
     (filament) => filament.pricePerKg > 0 || filament.grams > 0,
   ).length;
+  const shouldScrollFilaments = filaments.length > 9;
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
@@ -146,116 +164,155 @@ export function Calculator() {
 
         <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.25fr)_380px]">
           <div className="space-y-6">
-            <Card>
-              <CardHeader className="pb-0">
-                <CardTitle className="text-sm font-bold uppercase tracking-[0.22em] text-amber-700 dark:text-amber-300">
-                  Tempo de Impressao
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_190px] sm:items-end">
-                  <div className="space-y-2">
+            <div className="grid gap-6 lg:grid-cols-2">
+              <Card>
+                <CardHeader className="pb-2">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="space-y-1">
+                      <CardTitle className="text-sm font-bold uppercase tracking-[0.22em] text-amber-700 dark:text-amber-300">
+                        Tempo de Impressao
+                      </CardTitle>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={resetMinutes}
+                      className="self-start"
+                    >
+                      <RotateCcw className="size-4" />
+                      Zerar minutos
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4 pt-2">
+                  <div className="grid gap-4  xl:items-stretch">
+                    <div className="rounded-[26px] border border-slate-200/80 bg-white/85 p-5 dark:border-slate-800 dark:bg-slate-950/60">
+                      <div className="flex flex-col space-y-2 gap-2">
+                        <Label className="text-slate-700 dark:text-slate-200">
+                          Minutos de impressao
+                        </Label>
+                        <Input
+                          type="number"
+                          min="0"
+                          step="1"
+                          placeholder="Ex: 120"
+                          value={minutes.displayValue}
+                          onChange={minutes.onChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex min-h-full flex-col justify-between rounded-[26px] border border-amber-200 bg-amber-50 p-5 dark:border-slate-800 dark:bg-slate-950">
+                      <p className="text-xs font-bold tracking-[0.18em] text-amber-700 uppercase dark:text-amber-300">
+                        Custo por minuto
+                      </p>
+                      <p className="mt-3 text-3xl font-bold tabular-nums text-slate-900 dark:text-white">
+                        {formatBRL(timePricePerMinute)}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-2">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="space-y-1">
+                      <CardTitle className="text-sm font-bold uppercase tracking-[0.22em] text-amber-700 dark:text-amber-300">
+                        Custos Operacionais
+                      </CardTitle>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={resetOperationalCosts}
+                      className="self-start"
+                    >
+                      <RotateCcw className="size-4" />
+                      Limpar tudo
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="grid gap-4 pt-2 sm:grid-cols-2">
+                  <div className="space-y-2 rounded-[24px] border border-slate-200/80 bg-white/85 p-5 dark:border-slate-800 dark:bg-slate-950/60">
                     <Label className="text-slate-700 dark:text-slate-200">
-                      Minutos de impressao
+                      Preco da hora (R$)
                     </Label>
                     <Input
                       type="number"
                       min="0"
-                      step="1"
-                      placeholder="Ex: 120"
-                      value={minutes.displayValue}
-                      onChange={minutes.onChange}
+                      step="0.01"
+                      placeholder="Ex: 15"
+                      value={priceH.displayValue}
+                      onChange={priceH.onChange}
                     />
                   </div>
-                  <div className="rounded-[24px] border border-amber-200 bg-amber-50 px-4 py-4 dark:border-slate-800 dark:bg-slate-950">
-                    <p className="text-xs font-bold tracking-[0.18em] text-amber-700 uppercase dark:text-amber-300">
-                      Custo por minuto
-                    </p>
-                    <p className="mt-2 text-2xl font-bold tabular-nums text-slate-900 dark:text-white">
-                      {formatBRL(timePricePerMinute)}
-                    </p>
+                  <div className="space-y-2 rounded-[24px] border border-slate-200/80 bg-white/85 p-5 dark:border-slate-800 dark:bg-slate-950/60">
+                    <Label className="text-slate-700 dark:text-slate-200">
+                      Manutencao (R$)
+                    </Label>
+                    <Input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      placeholder="Ex: 5"
+                      value={maintenance.displayValue}
+                      onChange={maintenance.onChange}
+                    />
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                  <div className="space-y-2 rounded-[24px] border border-slate-200/80 bg-white/85 p-5 dark:border-slate-800 dark:bg-slate-950/60 sm:col-span-2">
+                    <Label className="text-slate-700 dark:text-slate-200">
+                      Lucro (%)
+                    </Label>
+                    <Input
+                      type="number"
+                      min="0"
+                      step="0.1"
+                      placeholder="Ex: 30"
+                      value={markup.displayValue}
+                      onChange={markup.onChange}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
             <Card>
-              <CardHeader className="pb-0">
-                <CardTitle className="text-sm font-bold uppercase tracking-[0.22em] text-amber-700 dark:text-amber-300">
-                  Custos Operacionais
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label className="text-slate-700 dark:text-slate-200">
-                    Preco da hora (R$)
-                  </Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="Ex: 15"
-                    value={priceH.displayValue}
-                    onChange={priceH.onChange}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-slate-700 dark:text-slate-200">
-                    Manutencao (R$)
-                  </Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    placeholder="Ex: 5"
-                    value={maintenance.displayValue}
-                    onChange={maintenance.onChange}
-                  />
-                </div>
-                <div className="space-y-2 sm:col-span-2">
-                  <Label className="text-slate-700 dark:text-slate-200">
-                    Lucro (%)
-                  </Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.1"
-                    placeholder="Ex: 30"
-                    value={markup.displayValue}
-                    onChange={markup.onChange}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-0">
+              <CardHeader className="pb-2">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <CardTitle className="text-sm font-bold uppercase tracking-[0.22em] text-amber-700 dark:text-amber-300">
                       Filamentos
                     </CardTitle>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                      Adicione os materiais usados para compor o custo real da
-                      peca.
-                    </p>
                   </div>
-                  <Button variant="default" onClick={addFilament}>
-                    <Plus className="size-4" />
-                    Adicionar Filamento
-                  </Button>
+                  <div className="flex flex-wrap gap-2">
+                    <Button variant="outline" size="sm" onClick={resetFilamentGrams}>
+                      <RotateCcw className="size-4" />
+                      Zerar gramas
+                    </Button>
+                    <Button variant="default" onClick={addFilament}>
+                      <Plus className="size-4" />
+                      Adicionar Filamento
+                    </Button>
+                  </div>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-3">
-                {filaments.map((filament, index) => (
-                  <FilamentCard
-                    key={filament.id}
-                    index={index}
-                    filament={filament}
-                    onChange={handleFilamentChange}
-                    onRemove={removeFilament}
-                  />
-                ))}
+              <CardContent
+                className={[
+                  "space-y-0 pt-2",
+                  shouldScrollFilaments ? "max-h-[52rem] overflow-y-auto pr-2" : "",
+                ].join(" ")}
+              >
+                <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                  {filaments.map((filament, index) => (
+                    <FilamentCard
+                      key={filament.id}
+                      index={index}
+                      filament={filament}
+                      onChange={handleFilamentChange}
+                      onRemove={removeFilament}
+                    />
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </div>

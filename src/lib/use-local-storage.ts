@@ -29,5 +29,5 @@ export function usePersistedNumber(key: string, initialValue: number) {
 		[setValue],
 	);
 
-	return { value, onChange, displayValue: value || "" } as const;
+	return { value, onChange, displayValue: value || "", setValue } as const;
 }
